@@ -21,6 +21,8 @@ For other libraries, check requirements.txt.
 
 + Shanghai Tech Part A and Part B can be downloaded [here](https://www.kaggle.com/tthien/shanghaitech)
 
++ Preprocessed VisDrone dataset can be downloaded [here](https://drive.google.com/file/d/1FZ6hmOhwoXftKVgRWep_AxKcKS4v1WMQ/view?usp=sharing)
+
 2. Data preprocess
 
 Due to large sizes of images in QNRF and NWPU datasets, we preprocess these two datasets.
@@ -32,7 +34,7 @@ python preprocess_dataset.py --dataset <dataset name: qnrf or nwpu> --input-data
 3. Training
 
 ```
-python train.py --dataset <dataset name: qnrf, sha, shb or nwpu> --data-dir <path to dataset> --device <gpu device id>
+python train.py --dataset sha --data-dir <path to dataset> --device <gpu device id>
 ```
 
 4. Test
