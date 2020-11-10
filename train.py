@@ -47,7 +47,7 @@ def parse_args():
         args.crop_size = 384
         args.val_epoch = 50
     elif args.dataset.lower() == 'sha':
-        args.crop_size = 256
+        args.crop_size = 756
     elif args.dataset.lower() == 'shb':
         args.crop_size = 512
     else:
