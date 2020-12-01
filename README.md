@@ -15,13 +15,7 @@ For other libraries, check requirements.txt.
 ## Getting Started
 1. Dataset download
 
-+ QNRF can be downloaded [here](https://www.crcv.ucf.edu/data/ucf-qnrf/)
-
-+ NWPU can be downloaded [here](https://www.crowdbenchmark.com/nwpucrowd.html)
-
-+ Shanghai Tech Part A and Part B can be downloaded [here](https://www.kaggle.com/tthien/shanghaitech)
-
-+ Preprocessed VisDrone dataset can be downloaded [here](https://drive.google.com/file/d/1FZ6hmOhwoXftKVgRWep_AxKcKS4v1WMQ/view?usp=sharing)
++ Preprocessed VisDrone dataset can be downloaded [here](https://drive.google.com/file/d/1WbQnL8l8ZjGkzBonvu8vCp1JhdQOILma/view?usp=sharing)
 
 2. Data preprocess
 
@@ -37,10 +31,10 @@ python preprocess_dataset.py --dataset <dataset name: qnrf or nwpu> --input-data
 python train.py --dataset sha --data-dir <path to dataset> --device <gpu device id>
 ```
 
-4. Test
+4. Save the mAR values into a matrix during inference
 
 ```
-python test.py --model-path <path of the model to be evaluated> --data-path <directory for the dataset> --dataset <dataset name: qnrf, sha, shb or nwpu>
+python output_inference.py (need to modify the dataset path in the source code)
 ```
 
 ## Pretrained models
