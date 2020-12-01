@@ -17,21 +17,14 @@ For other libraries, check requirements.txt.
 
 + Preprocessed VisDrone dataset can be downloaded [here](https://drive.google.com/file/d/1WbQnL8l8ZjGkzBonvu8vCp1JhdQOILma/view?usp=sharing). Remove the "images" and "ground-truth" folder first. Before training the fine crowd counter, rename the folder "cropped-images" and "cropped-ground truth" to "images" and "ground-truth" respectively. Before training the coarse crowd counter, rename the folder "downsampled-cropped-images" and "downsampled-cropped-ground truth" to "images" and "ground-truth" respectively. 
 
-2. Data preprocess
-
-Due to large sizes of images in QNRF and NWPU datasets, we preprocess these two datasets.
-
-```
-python preprocess_dataset.py --dataset <dataset name: qnrf or nwpu> --input-dataset-path <original data directory> --output-dataset-path <processed data directory> 
-```
     
-3. Training
+2. Training
 
 ```
 python train.py --dataset sha --data-dir <path to dataset> --device <gpu device id>
 ```
 
-4. Save the mAR values into a matrix during inference
+3. Save the mAR values into a matrix during inference
 
 ```
 python output_inference.py (need to modify the dataset path in the source code)
