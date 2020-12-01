@@ -24,7 +24,7 @@ For other libraries, check requirements.txt.
 python train.py --dataset sha --data-dir <path to dataset> --device <gpu device id>
 ```
 
-3. Save the mAR values into a matrix during inference for the training of [RL model]https://github.com/swsamleo/Crowd_Counting_RL/blob/master/README.md
+3. Save the mAR values into a matrix during inference for the training of [RL model](https://github.com/swsamleo/Crowd_Counting_RL/blob/master/README.md)
 
 ```
 python output_inference.py (need to modify the dataset path in the source code)
