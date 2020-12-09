@@ -29,7 +29,7 @@ Remember to modify the train.py file "   elif args.dataset.lower() == 'sha': arg
 3. Save the mAR values into a matrix during inference for the training of [RL model](https://github.com/swsamleo/Crowd_Counting_RL)
 
 ```
-python output_inference.py (need to modify the dataset path in the source code)
+python output_inference.py (need to rewrite the code)
 ```
 
 ## Pretrained models
