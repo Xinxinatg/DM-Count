@@ -22,7 +22,8 @@ For other libraries, check requirements.txt.
 2. Training
 
 ```
-python train.py --dataset sha --data-dir <path to dataset> --device <gpu device id>
+python train.py --dataset sha --data-dir <path to dataset> --device <gpu device id>. Remember to modify the train.py file "   elif args.dataset.lower() == 'sha':
+        args.crop_size = 640" the crop_size shall be changed to 160 if it's for the coarse counter training.
 ```
 
 3. Save the mAR values into a matrix during inference for the training of [RL model](https://github.com/swsamleo/Crowd_Counting_RL)
