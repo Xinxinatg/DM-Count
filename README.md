@@ -32,9 +32,6 @@ Remember to modify the train.py file "   elif args.dataset.lower() == 'sha': arg
 python output_inference.py (need to rewrite model path and the name of the folder (from os.mkdir('/content/content/content/VisDrone2020-CC/test_data/base_dir_metric_cd') to os.mkdir('/content/content/content/VisDrone2020-CC/test_data/base_dir_metric_fd')) which stores the MAE number from inference) if training on fine counter
 ```
 
-## Pretrained models
-
-Pretrained models on UCF-QNRF, NWPU, Shanghaitech part A and B can be found in pretrained_models folder or [Google Drive](https://drive.google.com/drive/folders/10U7F4iW_aPICM5-qJq21SXLLkzlum9tX?usp=sharing)
 
 ## References
 If you find this work or code useful, please cite:
