@@ -43,6 +43,9 @@ for img_path in tqdm(img_paths_B):
     for i in range (0,3):
        for j in range (0,3):
           image_path=img_path.replace('downsampled-padded-images','images').replace('.jpg','_{}_{}.jpg'.format(i,j))
+            
+          mat_path=image_path.replace('.jpg', '.mat').replace('images', 'ground-truth').replace('IMG_', 'GT_IMG_')
+          mat = io.loadmat(mat_path)
 #          dataloader = torch.utils.data.DataLoader('sha', 1, shuffle=False,num_workers=1, pin_memory=True)
           image_errs = []
           img = transform(Image.open(image_path).convert('RGB')).cuda()
@@ -51,9 +54,8 @@ for img_path in tqdm(img_paths_B):
           #assert inputs.size(0) == 1, 'the batch size should equal to 1'
           with torch.set_grad_enabled(False):
               outputs, _ = model(inputs)
-          img_err = count[0].item() - torch.sum(outputs).item()
-
-          print(name, img_err, count[0].item(), torch.sum(outputs).item())
+          img_err = abs(mat["image_info"][0,0][0,0][1] - torch.sum(outputs).item())
+          print(image_path, img_err)
           image_errs_temp.append(img_err)
      
     image_errs = np.reshape(image_errs_temp,(3,3))
