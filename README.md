@@ -29,9 +29,9 @@ Remember to modify the train.py file "   elif args.dataset.lower() == 'sha': arg
 3. Save the mAR values into a matrix during inference for the training of [RL model](https://github.com/swsamleo/Crowd_Counting_RL)
 
 ```
-python output_inference.py (need to rewrite model path and the name of the folder (from os.mkdir('/content/content/content/VisDrone2020-CC/test_data/base_dir_metric_cd') to os.mkdir('/content/content/content/VisDrone2020-CC/test_data/base_dir_metric_fd')) which stores the MAE number from inference) if training on fine counter
+python output_inference.py 
 ```
-
+The model and dataset path need to be modified, and the name of the folder (from os.mkdir('/content/content/content/VisDrone2020-CC/test_data/base_dir_metric_cd') to os.mkdir('/content/content/content/VisDrone2020-CC/test_data/base_dir_metric_fd')) which stores the MAE number from inference) if training on fine counter.
 
 ## References
 If you find this work or code useful, please cite:
