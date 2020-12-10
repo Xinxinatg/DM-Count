@@ -31,7 +31,7 @@ Remember to modify the train.py file "   elif args.dataset.lower() == 'sha': arg
 ```
 python output_inference.py 
 ```
-The model and dataset path need to be modified, and the name of the folder (from os.mkdir('/content/content/content/VisDrone2020-CC/test_data/base_dir_metric_cd') to os.mkdir('/content/content/content/VisDrone2020-CC/test_data/base_dir_metric_fd')) which stores the MAE number from inference) if training on fine counter.
+The model, dataset path, and the name of the folder need to be modified. (The folder from os.mkdir('/content/content/content/VisDrone2020-CC/test_data/base_dir_metric_cd') to os.mkdir('/content/content/content/VisDrone2020-CC/test_data/base_dir_metric_fd')) which stores the MAE number from inference) if training on fine counter.
 
 ## References
 If you find this work or code useful, please cite:
