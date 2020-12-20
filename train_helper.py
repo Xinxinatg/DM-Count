@@ -14,7 +14,7 @@ from losses.ot_loss import OT_Loss
 from utils.pytorch_utils import Save_Handle, AverageMeter
 import utils.log_utils as log_utils
 
-
+root = '/content/content/content/VisDrone2020-CC'
 def train_collate(batch):
     transposed_batch = list(zip(*batch))
     images = torch.stack(transposed_batch[0], 0)
@@ -210,3 +210,49 @@ class Trainer(object):
                                                                                      self.epoch))
             torch.save(model_state_dic, os.path.join(self.save_dir, 'best_model_{}.pth'.format(self.best_count)))
             self.best_count += 1
+            os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+            device = torch.device('cuda')
+            part_B_train = os.path.join(root,'train_data','images')
+            part_B_test = os.path.join(root,'test_data','downsampled-padded-images')
+            model_path = os.path.join(self.save_dir, 'best_model_{}.pth'.format(self.best_count))
+            model = vgg19()
+            model.to(device)
+            model.load_state_dict(torch.load(model_path, device))
+            transform=transforms.Compose([
+                                   transforms.ToTensor(),transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                                 std=[0.229, 0.224, 0.225]),
+                               ])
+            path_sets_B = [part_B_test]
+            img_paths_B = []
+            for path in path_sets_B:
+                for img_path in glob.glob(os.path.join(path, '*.jpg')):
+                    img_paths_B.append(img_path)
+            number=0
+            image_errs_temp=[]
+            os.mkdir('/content/content/content/VisDrone2020-CC/test_data/base_dir_metric_cd')
+            for img_path in tqdm(img_paths_B):
+            #for k in xrange(len(img_paths_B)):
+                for i in range (0,3):
+                   for j in range (0,3):
+                      image_path=img_path.replace('downsampled-padded-images','images').replace('.jpg','_{}_{}.jpg'.format(i,j))
+
+                      mat_path=image_path.replace('.jpg', '.mat').replace('images', 'ground-truth').replace('IMG_', 'GT_IMG_')
+                      mat = io.loadmat(mat_path)
+            #          dataloader = torch.utils.data.DataLoader('sha', 1, shuffle=False,num_workers=1, pin_memory=True)
+                      image_errs = []
+                      img = transform(Image.open(image_path).convert('RGB')).cuda()
+                      inputs = img.unsqueeze(0)
+
+                      #assert inputs.size(0) == 1, 'the batch size should equal to 1'
+                      with torch.set_grad_enabled(False):
+                          outputs, _ = model(inputs)
+                      img_err = abs(mat["image_info"][0,0][0,0][1] - torch.sum(outputs).item())
+                      img_err=np.squeeze(img_err)
+                      print(image_path, img_err)
+                      image_errs_temp.append(img_err)
+
+                image_errs = np.reshape(image_errs_temp,(3,3))
+
+                with open(img_path.replace('downsampled-padded-images','base_dir_metric_fd').replace('.jpg','.npy'), 'wb') as f:
+                 np.save(f, image_errs)
+                image_errs_temp.clear()
