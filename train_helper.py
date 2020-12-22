@@ -36,6 +36,7 @@ from torchvision import transforms
 from models import vgg19
 
 root = './'
+os.mkdir(os.path.join(root,'content','VisDrone2020-CC','test_data','base_dir_metric_cd'))
 def train_collate(batch):
     transposed_batch = list(zip(*batch))
     images = torch.stack(transposed_batch[0], 0)
@@ -249,8 +250,7 @@ class Trainer(object):
                 for img_path in glob.glob(os.path.join(path, '*.jpg')):
                     img_paths_B.append(img_path)
             number=0
-            image_errs_temp=[]          
-            os.mkdir(os.path.join(root,'content','VisDrone2020-CC','test_data','base_dir_metric_cd'))
+            image_errs_temp=[]                  
             for img_path in tqdm(img_paths_B):
             #for k in xrange(len(img_paths_B)):
                 for i in range (0,3):
