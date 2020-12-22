@@ -35,7 +35,7 @@ import datasets.crowd as crowd
 from torchvision import transforms
 from models import vgg19
 
-root = '/content/content/content/VisDrone2020-CC'
+root = './'
 def train_collate(batch):
     transposed_batch = list(zip(*batch))
     images = torch.stack(transposed_batch[0], 0)
@@ -233,9 +233,9 @@ class Trainer(object):
             self.best_count += 1
             os.environ['CUDA_VISIBLE_DEVICES'] = '0'
             device = torch.device('cuda')
-            part_B_train = os.path.join(root,'train_data','images')
-            part_B_test = os.path.join(root,'test_data','downsampled-padded-images')
-            model_path = os.path.join(self.save_dir, 'best_model_{}.pth'.format(self.best_count))
+            part_B_train = os.path.join(root,'content','VisDrone2020-CC','train_data','images')
+            part_B_test = os.path.join(root,'content','VisDrone2020-CC','test_data','downsampled-padded-images')
+            model_path = os.path.join(root,'DM-Count',self.save_dir, 'best_model_{}.pth'.format(self.best_count))
             model = vgg19()
             model.to(device)
             model.load_state_dict(torch.load(model_path, device))
@@ -249,8 +249,8 @@ class Trainer(object):
                 for img_path in glob.glob(os.path.join(path, '*.jpg')):
                     img_paths_B.append(img_path)
             number=0
-            image_errs_temp=[]
-            os.mkdir('/content/content/content/VisDrone2020-CC/test_data/base_dir_metric_cd')
+            image_errs_temp=[]          
+            os.mkdir(os.path.join(root,'content','VisDrone2020-CC','test_data','base_dir_metric_cd'))
             for img_path in tqdm(img_paths_B):
             #for k in xrange(len(img_paths_B)):
                 for i in range (0,3):
