@@ -235,8 +235,8 @@ class Trainer(object):
             self.best_count += 1
             os.environ['CUDA_VISIBLE_DEVICES'] = '0'
             device = torch.device('cuda')
-            part_B_train = os.path.join(root,'content','VisDrone2020-CC','train_data','images')
-            part_B_test = os.path.join(root,'content','VisDrone2020-CC','test_data','downsampled-padded-images')
+            part_B_train = os.path.join(args.data_dir,'train_data','images')
+            part_B_test = os.path.join(args.data_dir,'test_data','downsampled-padded-images')
             model_path = os.path.join(self.save_dir, 'best_model_{}.pth'.format(self.best_count - 1))
             model = vgg19()
             model.to(device)
