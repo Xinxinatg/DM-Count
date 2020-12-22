@@ -22,7 +22,7 @@ For other libraries, check requirements.txt.
 2. Training
 
 ```
-python train.py --dataset sha --data-dir <path to dataset> --device <gpu device id>.
+python train.py --dataset sha --data-dir <path to dataset> --device <gpu device id> --crop-size <160 or 640 for cd or fd>
 ```
 Remember to modify the train.py file "   elif args.dataset.lower() == 'sha': args.crop_size = 640" the crop_size shall be changed to 160 if it's for the coarse counter training.
 
