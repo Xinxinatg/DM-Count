@@ -1,6 +1,7 @@
 import argparse
 import os
 import torch
+import shutil
 from train_helper import Trainer
 
 
@@ -38,8 +39,35 @@ def parse_args():
     parser.add_argument('--num-of-iter-in-ot', type=int, default=100,
                         help='sinkhorn iterations')
     parser.add_argument('--norm-cood', type=int, default=0, help='whether to norm cood when computing distance')
+    parser.add_argument('--counter-type', default='cc', help='cc for coarse counter or fc for fine counter')
+    
 
     args = parser.parse_args()
+    ori_dataset_dir=args.dataset_dir
+    os.mkdir(os.path.join(ori_dataset_dir,args.counter_type))
+    os.mkdir(os.path.join(ori_dataset_dir,args.counter_type,train_data))
+    os.mkdir(os.path.join(ori_dataset_dir,args.counter_type,train_data,images))
+    os.mkdir(os.path.join(ori_dataset_dir,args.counter_type,train_data,ground-truth))
+    os.mkdir(os.path.join(ori_dataset_dir,args.counter_type,test_data))
+    os.mkdir(os.path.join(ori_dataset_dir,args.counter_type,test_data,images))
+    os.mkdir(os.path.join(ori_dataset_dir,args.counter_type,test_data,ground-truth))
+    if args.counter_type == 'cc':
+       shutil.copytree(os.path.join(ori_dataset_dir,train_data,downsampled-cropped-images),os.path.join(ori_dataset_dir,args.counter_type,train_data,images))
+       shutil.copytree(os.path.join(ori_dataset_dir,train_data,downsampled-cropped-ground-truth),os.path.join(ori_dataset_dir,args.counter_type,train_data,ground-truth))
+       shutil.copytree(os.path.join(ori_dataset_dir,test_data,downsampled-cropped-ground-truth),os.path.join(ori_dataset_dir,args.counter_type,test_data,ground-truth))
+       shutil.copytree(os.path.join(ori_dataset_dir,test_data,downsampled-cropped-images),os.path.join(ori_dataset_dir,args.counter_type,test_data,images))
+       args.crop_size = 160
+       args.dataset_dir= os.path.join(ori_dataset_dir,args.counter_type)
+    elif args.counter_type == 'fc':
+       shutil.copytree(os.path.join(ori_dataset_dir,train_data,cropped-images),os.path.join(ori_dataset_dir,args.counter_type,train_data,images))
+       shutil.copytree(os.path.join(ori_dataset_dir,train_data,cropped-ground-truth),os.path.join(ori_dataset_dir,args.counter_type,train_data,ground-truth))
+       shutil.copytree(os.path.join(ori_dataset_dir,test_data,cropped-ground-truth),os.path.join(ori_dataset_dir,args.counter_type,test_data,ground-truth))
+       shutil.copytree(os.path.join(ori_dataset_dir,test_data,cropped-images),os.path.join(ori_dataset_dir,args.counter_type,test_data,images))
+       args.crop_size = 640
+       args.dataset_dir= os.path.join(ori_dataset_dir,args.counter_type)    
+    else:
+       raise NotImplementedError
+    return args
 
     if args.dataset.lower() == 'qnrf':
         args.crop_size = 512
