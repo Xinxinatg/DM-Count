@@ -35,8 +35,6 @@ import datasets.crowd as crowd
 from torchvision import transforms
 from models import vgg19
 
-root = './'
-os.mkdir(os.path.join(root,'content','VisDrone2020-CC','test_data','base_dir_metric_cd'))
 def train_collate(batch):
     transposed_batch = list(zip(*batch))
     images = torch.stack(transposed_batch[0], 0)
@@ -205,7 +203,10 @@ class Trainer(object):
         self.save_list.append(save_path)
 
     def val_epoch(self):
-        args = self.args
+        args = self.args        
+        counter_dir=os.path.join(args.data_dir,'test_data','base_dir_metric_{}'.format(args.counter_type))
+        if not os.path.exists(counter_dir):
+             os.makedirs(counter_dir)
         epoch_start = time.time()
         self.model.eval()  # Set model to evaluate mode
         epoch_res = []
@@ -224,7 +225,7 @@ class Trainer(object):
                          .format(self.epoch, mse, mae, time.time() - epoch_start))
 
         model_state_dic = self.model.state_dict()
-        if (2.0 * mse + mae) < (2.0 * self.best_mse + self.best_mae):
+        if (2.0 * mse + mae) < (2.0 * self.best_mse + self.best_mae):                  
             self.best_mse = mse
             self.best_mae = mae
             self.logger.info("save best mse {:.2f} mae {:.2f} model epoch {}".format(self.best_mse,
@@ -274,6 +275,6 @@ class Trainer(object):
 
                 image_errs = np.reshape(image_errs_temp,(3,3))
 
-                with open(img_path.replace('downsampled-padded-images','base_dir_metric_cd').replace('.jpg','.npy'), 'wb') as f:
+                with open(img_path.replace('downsampled-padded-images','base_dir_metric_{}'.format(args.counter_type)).replace('.jpg','.npy'), 'wb') as f:
                  np.save(f, image_errs)
                 image_errs_temp.clear()
