@@ -45,13 +45,19 @@ def parse_args():
     args = parser.parse_args()
     ori_dataset_dir=args.data_dir
     if not os.path.exists(os.path.join(ori_dataset_dir,args.counter_type)):
-             os.mkdir(os.path.join(ori_dataset_dir,args.counter_type))
-    os.mkdir(os.path.join(ori_dataset_dir,args.counter_type,'train_data'))
-    os.mkdir(os.path.join(ori_dataset_dir,args.counter_type,'train_data','images'))
-    os.mkdir(os.path.join(ori_dataset_dir,args.counter_type,'train_data','ground-truth'))
-    os.mkdir(os.path.join(ori_dataset_dir,args.counter_type,'test_data'))
-    os.mkdir(os.path.join(ori_dataset_dir,args.counter_type,'test_data','images'))
-    os.mkdir(os.path.join(ori_dataset_dir,args.counter_type,'test_data','ground-truth'))
+        os.mkdir(os.path.join(ori_dataset_dir,args.counter_type))
+    if not os.path.exists(os.path.join(ori_dataset_dir,args.counter_type,'train_data')):
+        os.mkdir(os.path.join(ori_dataset_dir,args.counter_type,'train_data'))
+    if not os.path.exists(os.path.join(ori_dataset_dir,args.counter_type,'train_data','images')):
+        os.mkdir(os.path.join(ori_dataset_dir,args.counter_type,'train_data','images'))
+    if not os.path.exists(os.path.join(ori_dataset_dir,args.counter_type,'train_data','ground-truth')):
+        os.mkdir(os.path.join(ori_dataset_dir,args.counter_type,'train_data','ground-truth'))
+    if not os.path.exists(os.path.join(ori_dataset_dir,args.counter_type,'test_data')):
+        os.mkdir(os.path.join(ori_dataset_dir,args.counter_type,'test_data'))
+    if not os.path.exists(os.path.join(ori_dataset_dir,args.counter_type,'test_data','images')):
+        os.mkdir(os.path.join(ori_dataset_dir,args.counter_type,'test_data','images'))
+    if not os.path.exists(os.path.join(ori_dataset_dir,args.counter_type,'test_data','ground-truth')):
+        os.mkdir(os.path.join(ori_dataset_dir,args.counter_type,'test_data','ground-truth'))
     if args.counter_type == 'cc':
        shutil.copytree(os.path.join(ori_dataset_dir,train_data,downsampled-cropped-images),os.path.join(ori_dataset_dir,args.counter_type,train_data,images))
        shutil.copytree(os.path.join(ori_dataset_dir,train_data,downsampled-cropped-ground-truth),os.path.join(ori_dataset_dir,args.counter_type,train_data,ground-truth))
