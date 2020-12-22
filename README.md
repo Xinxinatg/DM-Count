@@ -28,7 +28,7 @@ Remember to modify the train.py file "   elif args.dataset.lower() == 'sha': arg
 
 3. During training, the mae values will be saved automatically with the best model into a matrix for the training of [RL model](https://github.com/swsamleo/Crowd_Counting_RL)
 
-The dataset path (line 38), and the name of the folder (line 253 and 277) need to be modified in the train_helper.py file. (The folder from os.mkdir('/content/content/content/VisDrone2020-CC/test_data/base_dir_metric_fd') to os.mkdir('/content/content/content/VisDrone2020-CC/test_data/base_dir_metric_cd')) which stores the MAE number from inference) if training on coarse counter.
+The dataset path (line 38), and the name of the folder (line 39 and 277) need to be modified in the train_helper.py file. (The folder from os.mkdir('/content/content/content/VisDrone2020-CC/test_data/base_dir_metric_fd') to os.mkdir('/content/content/content/VisDrone2020-CC/test_data/base_dir_metric_cd')) which stores the MAE number from inference) if training on coarse counter.
 
 ## References
 If you find this work or code useful, please cite:
