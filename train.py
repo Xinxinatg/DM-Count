@@ -44,7 +44,8 @@ def parse_args():
 
     args = parser.parse_args()
     ori_dataset_dir=args.data_dir
-    os.mkdir(os.path.join(ori_dataset_dir,args.counter_type))
+    if not os.path.exists(os.path.join(ori_dataset_dir,args.counter_type)):
+             os.mkdir(os.path.join(ori_dataset_dir,args.counter_type))
     os.mkdir(os.path.join(ori_dataset_dir,args.counter_type,'train_data'))
     os.mkdir(os.path.join(ori_dataset_dir,args.counter_type,'train_data','images'))
     os.mkdir(os.path.join(ori_dataset_dir,args.counter_type,'train_data','ground-truth'))
