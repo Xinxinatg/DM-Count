@@ -274,6 +274,6 @@ class Trainer(object):
 
                 image_errs = np.reshape(image_errs_temp,(3,3))
 
-                with open(img_path.replace('downsampled-padded-images','base_dir_metric_fd').replace('.jpg','.npy'), 'wb') as f:
+                with open(img_path.replace('downsampled-padded-images','base_dir_metric_cd').replace('.jpg','.npy'), 'wb') as f:
                  np.save(f, image_errs)
                 image_errs_temp.clear()
