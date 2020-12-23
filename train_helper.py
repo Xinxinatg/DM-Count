@@ -257,7 +257,6 @@ class Trainer(object):
                 for i in range (0,3):
                    for j in range (0,3):
                       image_path=img_path.replace('test_data','{}/test_data'.format(args.counter_type)).replace('.jpg','_{}_{}.jpg'.format(i,j))
-
                       mat_path=image_path.replace('.jpg', '.mat').replace('images', 'ground-truth').replace('IMG_', 'GT_IMG_')
                       mat = io.loadmat(mat_path)
             #          dataloader = torch.utils.data.DataLoader('sha', 1, shuffle=False,num_workers=1, pin_memory=True)
