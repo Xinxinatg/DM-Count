@@ -22,7 +22,7 @@ For other libraries, check requirements.txt.
 2. Training
 
 ```
-python train.py --data-dir <path to dataset> --counter_type <cc for coarse counter or fc for fine counter>
+python train.py --data-dir <path to dataset> --counter-type <cc for coarse counter or fc for fine counter>
 ```
 
 
