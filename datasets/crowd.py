@@ -163,6 +163,7 @@ class Crowd_sh(Base):
 
         self.im_list = sorted(glob(os.path.join(self.root_path, 'images', '*.jpg')))
         print('number of img: {}'.format(len(self.im_list)))
+        print(self.im_list[0])
 
     def __len__(self):
         return len(self.im_list)
