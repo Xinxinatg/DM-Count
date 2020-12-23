@@ -238,7 +238,7 @@ class Trainer(object):
             part_B_train = os.path.join(args.data_dir,'train_data','images')
             part_B_train=part_B_train.replace('{}/train_data'.format(args.counter_type),'train_data')
             part_B_test = os.path.join(args.data_dir,'test_data','images')
-            part_B_test = part_B_test.repace('{}/test_data'.format(args.counter_type),'test_data')
+            part_B_test = part_B_test.replace('{}/test_data'.format(args.counter_type),'test_data')
             model_path = os.path.join(self.save_dir, 'best_model_{}.pth'.format(self.best_count - 1))
             model = vgg19()
             model.to(device)
