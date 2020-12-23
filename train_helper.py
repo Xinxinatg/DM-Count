@@ -235,8 +235,8 @@ class Trainer(object):
             self.best_count += 1
             os.environ['CUDA_VISIBLE_DEVICES'] = '0'
             device = torch.device('cuda')
-            part_B_train = os.path.join(args.data_dir,'train_data','images')
-            part_B_test = os.path.join(args.data_dir,'test_data','downsampled-padded-images')
+            part_B_train = os.path.join(args.data_dir,args.counter_type,'train_data','images')
+            part_B_test = os.path.join(args.data_dir,,args.counter_type,'test_data','images')
             model_path = os.path.join(self.save_dir, 'best_model_{}.pth'.format(self.best_count - 1))
             model = vgg19()
             model.to(device)
@@ -256,7 +256,7 @@ class Trainer(object):
             #for k in xrange(len(img_paths_B)):
                 for i in range (0,3):
                    for j in range (0,3):
-                      image_path=img_path.replace('downsampled-padded-images','images').replace('.jpg','_{}_{}.jpg'.format(i,j))
+                      image_path=img_path.replace('downsampled-padded-images','{}/images'.format(args.counter_type)).replace('.jpg','_{}_{}.jpg'.format(i,j))
 
                       mat_path=image_path.replace('.jpg', '.mat').replace('images', 'ground-truth').replace('IMG_', 'GT_IMG_')
                       mat = io.loadmat(mat_path)
