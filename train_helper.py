@@ -69,7 +69,7 @@ class Trainer(object):
         else:
             raise Exception("gpu is not available")
 
-        downsample_ratio = 8
+        downsample_ratio = 1
         if args.dataset.lower() == 'qnrf':
             self.datasets = {x: Crowd_qnrf(os.path.join(args.data_dir, x),
                                            args.crop_size, downsample_ratio, x) for x in ['train', 'val']}
