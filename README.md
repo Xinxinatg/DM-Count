@@ -22,14 +22,13 @@ For other libraries, check requirements.txt.
 2. Training
 
 ```
-python train.py --dataset sha --data-dir <path to dataset> --device <gpu device id> --crop-size <160 or 640 for cd or fd>
+python train.py --data-dir <path to dataset> --counter_type <cc for coarse counter or fc for fine counter>
 ```
-Remember to modify the train.py file "   elif args.dataset.lower() == 'sha': args.crop_size = 640" the crop_size shall be changed to 160 if it's for the coarse counter training.
+
 
 3. During training, the mae values will be saved automatically with the best model into a matrix for the training of [RL model](https://github.com/swsamleo/Crowd_Counting_RL)
 
-The dataset path (line 38), and the name of the folder (line 39 and 277) need to be modified in the train_helper.py file. (The folder from os.mkdir('/content/content/content/VisDrone2020-CC/test_data/base_dir_metric_fd') to os.mkdir('/content/content/content/VisDrone2020-CC/test_data/base_dir_metric_cd')) which stores the MAE number from inference) if training on coarse counter.
-
+The mae data will be saved into data_dir/{}/'base_dir_metric_{}'.format(args.counter_type,args.counter_type).
 ## References
 If you find this work or code useful, please cite:
 
