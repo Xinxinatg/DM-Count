@@ -204,7 +204,7 @@ class Trainer(object):
 
     def val_epoch(self):
         args = self.args        
-        counter_dir=os.path.join(args.data_dir,args.counter_type,'test_data','base_dir_metric_{}'.format(args.counter_type))
+        counter_dir=os.path.join(args.data_dir,'test_data','base_dir_metric_{}'.format(args.counter_type))
         if not os.path.exists(counter_dir):
              os.makedirs(counter_dir)
         epoch_start = time.time()
