@@ -35,12 +35,17 @@ else:
     raise NotImplementedError
 dataloader = torch.utils.data.DataLoader(dataset, 1, shuffle=False,
                                          num_workers=1, pin_memory=True)
-
+transform=transforms.Compose([
+                       transforms.ToTensor(),transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                     std=[0.229, 0.224, 0.225]),
+                   ])
 model = vgg19()
 model.to(device)
 model.load_state_dict(torch.load(model_path, device))
 image_errs = []
 for inputs, count, name in dataloader:
+    inputs=inputs.squeeze(0)  #add transform module
+    inputs = transform(inputs).unsqueeze(0)    
     inputs = inputs.to(device)
     assert inputs.size(0) == 1, 'the batch size should equal to 1'
     with torch.set_grad_enabled(False):
