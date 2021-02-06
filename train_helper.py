@@ -9,7 +9,8 @@ import numpy as np
 from datetime import datetime
 
 from datasets.crowd import Crowd_qnrf, Crowd_nwpu, Crowd_sh
-from models import vgg19
+#from models import vgg19
+from models.transformer_cc_cuda import TR_CC
 from losses.ot_loss import OT_Loss
 from utils.pytorch_utils import Save_Handle, AverageMeter
 import utils.log_utils as log_utils
@@ -33,7 +34,7 @@ import scipy.io as io
 import numpy as np
 import datasets.crowd as crowd
 from torchvision import transforms
-from models import vgg19
+#from models import vgg19
 
 def train_collate(batch):
     transposed_batch = list(zip(*batch))
@@ -94,7 +95,8 @@ class Trainer(object):
                                           num_workers=args.num_workers * self.device_count,
                                           pin_memory=(True if x == 'train' else False))
                             for x in ['train', 'val']}
-        self.model = vgg19()
+        #self.model = vgg19()
+        self.model = TR_CC()
         self.model.to(self.device)
         self.optimizer = optim.Adam(self.model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
 
