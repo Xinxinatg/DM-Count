@@ -38,11 +38,9 @@ class CustomizedAttn(nn.Module):
         self.to_out = nn.Linear(d_model, d_model)
     #    self.layernorm = nn.BatchNorm1d(d_model, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
         self.dropout = nn.Dropout(dropout)
-
-        self.null_k = nn.Parameter(torch.zeros(1, 1, d_model))
-        self.null_v = nn.Parameter(torch.zeros(1, 1, d_model))
-        self.null_k = nn.Parameter(torch.zeros(1, 1, d_model))
-        self.null_v = nn.Parameter(torch.zeros(1, 1, d_model))
+        #to modify the first dimension according to the batch number
+        self.null_k = nn.Parameter(torch.zeros(10, 1, d_model))
+        self.null_v = nn.Parameter(torch.zeros(10, 1, d_model))
       
     def forward(self, k, q, value):   
         k=k.transpose(0,1)
