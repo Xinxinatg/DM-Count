@@ -62,7 +62,10 @@ class TR_CC(nn.Module):
         # propagate through the transformer
         h = self.transformer(0.1 * src,pos)
         densitym=self.output_layer(h)
-        return densitym
+        B, C, H, W = densitym.size()
+        densitym_sum = densitym.view([B, -1]).sum(1).unsqueeze(1).unsqueeze(2).unsqueeze(3)
+        densitym_normed = densitym / (densitym_sum + 1e-6)
+        return densitym, densitym_normed
 
     def _initialize_weights(self):
         for m in self.modules():
