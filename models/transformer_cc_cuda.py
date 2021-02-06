@@ -32,13 +32,14 @@ class TR_CC(nn.Module):
         # prediction heads, one extra class for predicting non-empty slots
         # note that in baseline DETR linear_bbox layer is 3-layer MLP
         self.output_layer=nn.Conv2d(hidden_dim, 1, kernel_size=1)
-
+    
         # output positional encodings (object queries)
 
         # spatial positional encodings
         # note that in baseline DETR we use sine positional encodings
         self.row_embed = nn.Parameter(torch.rand(400, hidden_dim // 2,requires_grad=True, device=dev))
         self.col_embed = nn.Parameter(torch.rand(400, hidden_dim // 2,requires_grad=True, device=dev))
+        self.output_norm=n.ReLU(inplace=True)
         if not load_weights:
             mod = models.vgg16(pretrained = True)
             self._initialize_weights()
@@ -62,6 +63,7 @@ class TR_CC(nn.Module):
         # propagate through the transformer
         h = self.transformer(0.1 * src,pos)
         densitym=self.output_layer(h)
+        densitym=self.output_norm(densitym)
         B, C, H, W = densitym.size()
         densitym_sum = densitym.view([B, -1]).sum(1).unsqueeze(1).unsqueeze(2).unsqueeze(3)
         densitym_normed = densitym / (densitym_sum + 1e-6)
