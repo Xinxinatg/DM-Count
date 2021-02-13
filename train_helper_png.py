@@ -279,6 +279,6 @@ class Trainer(object):
 
                 image_errs = np.reshape(image_errs_temp,(3,3))
 
-                with open(img_path.replace('test_data/pngs','{}/test_data/base_dir_metric_{}'.format(args.counter_type,args.counter_type)).replace('.png','.npy'), 'wb') as f:
+                with open(img_path.replace('test_data/images','{}/test_data/base_dir_metric_{}'.format(args.counter_type,args.counter_type)).replace('.png','.npy'), 'wb') as f:
                  np.save(f, image_errs)
                 image_errs_temp.clear()
