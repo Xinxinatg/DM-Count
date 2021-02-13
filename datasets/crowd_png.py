@@ -161,7 +161,7 @@ class Crowd_sh(Base):
         if method not in ['train', 'val']:
             raise Exception("not implement")
 
-        self.im_list = sorted(glob(os.path.join(self.root_path, 'pngs', '*.png')))
+        self.im_list = sorted(glob(os.path.join(self.root_path, 'images', '*.png')))
         print('number of img: {}'.format(len(self.im_list)))
         print(self.im_list[0])
 
