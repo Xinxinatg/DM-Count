@@ -237,9 +237,9 @@ class Trainer(object):
             self.best_count += 1
             os.environ['CUDA_VISIBLE_DEVICES'] = '0'
             device = torch.device('cuda')
-            part_B_train = os.path.join(args.data_dir,'train_data','pngs')
+            part_B_train = os.path.join(args.data_dir,'train_data','images')
             part_B_train=part_B_train.replace('{}/train_data'.format(args.counter_type),'train_data')
-            part_B_test = os.path.join(args.data_dir,'test_data','pngs')
+            part_B_test = os.path.join(args.data_dir,'test_data','images')
             part_B_test = part_B_test.replace('{}/test_data'.format(args.counter_type),'test_data')
             model_path = os.path.join(self.save_dir, 'best_model_{}.pth'.format(self.best_count - 1))
             model = vgg19()
@@ -262,7 +262,7 @@ class Trainer(object):
                    for j in range (0,3):
                       image_path=img_path.replace('test_data','{}/test_data'.format(args.counter_type)).replace('.png','_{}_{}.png'.format(i,j))
                       name = os.path.basename(image_path).split('.')[0]
-                      mat_path=image_path.replace('.png', '.mat').replace('pngs', 'ground-truth').replace(name,'GT_{}'.format(name))
+                      mat_path=image_path.replace('.png', '.mat').replace('images', 'ground-truth').replace(name,'GT_{}'.format(name))
                       mat = io.loadmat(mat_path)
             #          dataloader = torch.utils.data.DataLoader('sha', 1, shuffle=False,num_workers=1, pin_memory=True)
                       image_errs = []
