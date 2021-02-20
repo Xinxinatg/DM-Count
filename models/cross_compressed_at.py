@@ -93,12 +93,13 @@ class Transformer(nn.Module):
             if p.dim() > 1:
                 nn.init.xavier_uniform_(p)
 
-    def forward(self, src, pos_embed):
+    def forward(self, src_1,src_2, pos_embed):
         # flatten NxCxHxW to HWxNxC
-        bs, c, h, w = src.shape
-        src = src.flatten(2).permute(2, 0, 1)
+        bs, c, h, w = src_1.shape
+        src_1 = src_1.flatten(2).permute(2, 0, 1)
+        src_2 = src_2.flatten(2).permute(2, 0, 1)
         pos_embed = pos_embed.flatten(2).permute(2, 0, 1)
-        memory = self.encoder(src, pos=pos_embed)
+        memory = self.encoder(src_1, src_2, pos=pos_embed)
 
         return memory.permute(1, 2, 0).view(bs, c, h, w)
 
@@ -116,7 +117,7 @@ class TransformerEncoder(nn.Module):
                 src_key_padding_mask: Optional[Tensor] = None,
                 pos: Optional[Tensor] = None):
         output = src
-
+         #20/02/2021 10:54pm modifying here
         for layer in self.layers:
             output = layer(output, src_mask=mask,
                            src_key_padding_mask=src_key_padding_mask, pos=pos)
@@ -154,30 +155,32 @@ class TransformerEncoderLayer(nn.Module):
                      src_mask: Optional[Tensor] = None,
                      src_key_padding_mask: Optional[Tensor] = None,
                      pos: Optional[Tensor] = None):
-        q =self.with_pos_embed(src_1, pos)
-        k =self.with_pos_embed(src_2, pos)
+        k =self.with_pos_embed(src_1, pos)
+        q =self.with_pos_embed(src_2, pos)
 
       #  src2 = self.self_attn(q, k, value=src, attn_mask=src_mask,
            #                   key_padding_mask=src_key_padding_mask)[0]
-        src2 = self.self_attn(q,k, value=src)
-        src = src + self.dropout1(src2)
-        src = self.norm1(src)
+        src2 = self.self_attn(q,k, value=src_1)
+        src_1 = src_1 + self.dropout1(src2)
+        src = self.norm1(src_1)
         src2 = self.linear2(self.dropout(self.activation(self.linear1(src))))
         src = src + self.dropout2(src2)
         src = self.norm2(src)
         return src
 
-    def forward_pre(self, src,
+    def forward_pre(self, src_1,src_2
                     src_mask: Optional[Tensor] = None,
                     src_key_padding_mask: Optional[Tensor] = None,
                     pos: Optional[Tensor] = None):
-        src2 = self.norm1(src)
-        q = k = self.with_pos_embed(src2, pos)
-        src2 = self.self_attn(k, q,value=src2)
-        src = src + self.dropout1(src2)
-        src2 = self.norm2(src)
+        src1_1 = self.norm1(src_1)
+        src1_2 = self.norm1(src_2)
+        k =self.with_pos_embed(src1_1, pos)
+        q =self.with_pos_embed(src1_2, pos)
+        src2 = self.self_attn(k, q,value=src1_1)
+        src_1 = src_1 + self.dropout1(src2)
+        src2 = self.norm2(src_1)
         src2 = self.linear2(self.dropout(self.activation(self.linear1(src2))))
-        src = src + self.dropout2(src2)
+        src = src_1 + self.dropout2(src2)
         return src
 
     def forward(self, src,
