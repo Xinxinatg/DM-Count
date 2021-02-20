@@ -146,15 +146,16 @@ class Trainer(object):
         epoch_start = time.time()
         self.model.train()  # Set model to training mode
 
-        for step, (inputs, points, st_sizes, gt_discrete) in enumerate(self.dataloaders['train']):
+        for step, (inputs,inputs_cross, points, st_sizes, gt_discrete) in enumerate(self.dataloaders['train']):
             inputs = inputs.to(self.device)
+            inputs_cross = inputs_cross.to(self.device)
             gd_count = np.array([len(p) for p in points], dtype=np.float32)
             points = [p.to(self.device) for p in points]
             gt_discrete = gt_discrete.to(self.device)
             N = inputs.size(0)
 
             with torch.set_grad_enabled(True):
-                outputs, outputs_normed = self.model(inputs)
+                outputs, outputs_normed = self.model(inputs,inputs_cross)
                 # Compute OT loss.
                 ot_loss, wd, ot_obj_value = self.ot_loss(outputs_normed, outputs, points)
                 ot_loss = ot_loss * self.args.wot
