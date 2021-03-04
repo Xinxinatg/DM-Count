@@ -23,7 +23,7 @@ def parse_args():
                         help='max training epoch')
     parser.add_argument('--val-epoch', type=int, default=5,
                         help='the num of steps to log training information')
-    parser.add_argument('--val-start', type=int, default=50,
+    parser.add_argument('--val-start', type=int, default=5,
                         help='the epoch start to val')
     parser.add_argument('--batch-size', type=int, default=10,
                         help='train batch size')
@@ -59,21 +59,23 @@ def parse_args():
    # if not os.path.exists(os.path.join(ori_dataset_dir,args.counter_type,'test_data','ground-truth')):
     #    os.mkdir(os.path.join(ori_dataset_dir,args.counter_type,'test_data','ground-truth'))
     if args.counter_type == 'cc':
-       if not os.path.exists(os.path.join(ori_dataset_dir,args.counter_type,'train_data','images'):
-               shutil.copytree(os.path.join(ori_dataset_dir,'train_data','downsampled-cropped-images'),os.path.join(ori_dataset_dir,args.counter_type,'train_data','images'))
-               shutil.copytree(os.path.join(ori_dataset_dir,'train_data','downsampled-cropped-ground-truth'),os.path.join(ori_dataset_dir,args.counter_type,'train_data','ground-truth'))
-               shutil.copytree(os.path.join(ori_dataset_dir,'test_data','downsampled-cropped-ground-truth'),os.path.join(ori_dataset_dir,args.counter_type,'test_data','ground-truth'))
-               shutil.copytree(os.path.join(ori_dataset_dir,'test_data','downsampled-cropped-images'),os.path.join(ori_dataset_dir,args.counter_type,'test_data','images'))
-               args.crop_size = 160
-               args.data_dir= os.path.join(ori_dataset_dir,args.counter_type)
+        args.crop_size = 80
+        args.data_dir= os.path.join(ori_dataset_dir,args.counter_type)
+        if not os.path.exists(os.path.join(ori_dataset_dir,args.counter_type,'train_data','images')):
+                shutil.copytree(os.path.join(ori_dataset_dir,'train_data','downsampled-cropped-images'),os.path.join(ori_dataset_dir,args.counter_type,'train_data','images'))
+                shutil.copytree(os.path.join(ori_dataset_dir,'train_data','downsampled-cropped-ground-truth'),os.path.join(ori_dataset_dir,args.counter_type,'train_data','ground-truth'))
+                shutil.copytree(os.path.join(ori_dataset_dir,'test_data','downsampled-cropped-ground-truth'),os.path.join(ori_dataset_dir,args.counter_type,'test_data','ground-truth'))
+                shutil.copytree(os.path.join(ori_dataset_dir,'test_data','downsampled-cropped-images'),os.path.join(ori_dataset_dir,args.counter_type,'test_data','images'))
+
     elif args.counter_type == 'fc':
-       if not os.path.exists(os.path.join(ori_dataset_dir,args.counter_type,'train_data','images'):
-               shutil.copytree(os.path.join(ori_dataset_dir,'train_data','cropped-images'),os.path.join(ori_dataset_dir,args.counter_type,'train_data','images'))
-               shutil.copytree(os.path.join(ori_dataset_dir,'train_data','cropped-ground-truth'),os.path.join(ori_dataset_dir,args.counter_type,'train_data','ground-truth'))
-               shutil.copytree(os.path.join(ori_dataset_dir,'test_data','cropped-ground-truth'),os.path.join(ori_dataset_dir,args.counter_type,'test_data','ground-truth'))
-               shutil.copytree(os.path.join(ori_dataset_dir,'test_data','cropped-images'),os.path.join(ori_dataset_dir,args.counter_type,'test_data','images'))
-               args.crop_size = 640
-               args.data_dir= os.path.join(ori_dataset_dir,args.counter_type)    
+        args.crop_size = 320
+        args.data_dir= os.path.join(ori_dataset_dir,args.counter_type)  
+        if not os.path.exists(os.path.join(ori_dataset_dir,args.counter_type,'train_data','images')):
+                shutil.copytree(os.path.join(ori_dataset_dir,'train_data','cropped-images'),os.path.join(ori_dataset_dir,args.counter_type,'train_data','images'))
+                shutil.copytree(os.path.join(ori_dataset_dir,'train_data','cropped-ground-truth'),os.path.join(ori_dataset_dir,args.counter_type,'train_data','ground-truth'))
+                shutil.copytree(os.path.join(ori_dataset_dir,'test_data','cropped-ground-truth'),os.path.join(ori_dataset_dir,args.counter_type,'test_data','ground-truth'))
+                shutil.copytree(os.path.join(ori_dataset_dir,'test_data','cropped-images'),os.path.join(ori_dataset_dir,args.counter_type,'test_data','images'))
+    
     else:
        raise NotImplementedError
     return args
