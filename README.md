@@ -15,9 +15,7 @@ For other libraries, check requirements.txt.
 ## Getting Started
 1. Dataset download
 
-+ Preprocessed VisDrone dataset can be downloaded [here](https://drive.google.com/file/d/1do8IDmMgVTrCHcKwfwitHG_QQhlu8ZRG/view?usp=sharing). Remove the "images" and "ground-truth" folder first. Before training the fine crowd counter, rename the folder "cropped-images" and "cropped-ground truth" to "images" and "ground-truth" respectively. Before training the coarse crowd counter, rename the folder "downsampled-cropped-images" and "downsampled-cropped-ground truth" to "images" and "ground-truth" respectively. 
-+ Here we use 640x640px and 160x160px images to train the fine and coarse level counters. The coarse images represented with 160x160px is the downsampled version of the high resolution images represented with 640x640 px. 
-
++ Preprocessed VisDrone dataset can be downloaded [here](https://drive.google.com/file/d/1s1yZwCsxWfD-2omN3J6Xs06LSI_hZZn-/view?usp=sharing).
     
 2. Training
 
